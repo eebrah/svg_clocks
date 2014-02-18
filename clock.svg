@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<svg xmlns="http://www.w3.org/2000/svg"
+	 xmlns:xlink="http://www.w3.org/1999/xlink"
+	 width="501" height="501"
+	 onload="init( evt );">
+	 
+	<title>SVG Clock</title>
+	
+	<script type="text/ecmascript">
+	<![CDATA[
+	
+function init( evt ) {
+
+	hour_hand = document.getElementById( "hour_hand" );
+	minute_hand = document.getElementById( "minute_hand" );
+	second_hand = document.getElementById( "second_hand" );
+	
+	setClock();
+
+}	
+
+function setClock() {
+
+	date = new Date();
+	
+	hours = date.getHours();
+	minutes = date.getMinutes();
+	seconds = date.getSeconds();
+
+	if( hours > 12 )
+		hours = hours - 12;
+			
+	hour_hand.setAttribute( "transform", "translate( 240, 240 ) rotate( " + ( ( hours - 3 ) * 30 ) + " 10,10 ) scale( 1.3, 1 )" );	
+	minute_hand.setAttribute( "transform", "translate( 240, 240 ) rotate( " + ( ( minutes - 15 ) * 6 ) + " 10,10 ) scale( 1.7, 1 )" );
+	second_hand.setAttribute( "transform", "translate( 240, 247 ) rotate( " + ( ( seconds - 15 ) * 6 ) + " 10,3 ) scale( 1.7, 0.333 )" );
+	
+	setTimeout( "setClock()", 1000 );
+
+}
+	
+	]]>
+	</script>
+	
+	<defs>
+		
+		<path id="hand" 
+		       d="M 0,0 l 100,0 0,21 -100,0 z" />
+		       
+	</defs>
+	
+	<circle cx="251" cy="251" 
+	        r="200" 
+	        fill="#FFFFFF" 
+	        stroke="black"
+	        stroke-width="20" />
+	        
+	<circle cx="251" cy="251" 
+	        r="20" 
+	        fill="#000000" />
+	       
+	<g fill="black" stroke="black">
+		
+		<use xlink:href="#hand" 
+		     id="hour_hand"
+		     transform="translate( 240, 240 ) rotate( -90 10,10 ) scale( 1.3, 1 ) " />
+		     
+		<use xlink:href="#hand" 
+		     id="minute_hand"
+		     transform="translate( 240, 240 ) rotate( -90, 10,10 ) scale( 1.7, 1 )" />
+		     
+		<use xlink:href="#hand" 
+		     id="second_hand"
+		     transform="translate( 240, 247 ) rotate( -90, 10,3 ) scale( 1.7, 0.333 )"
+		     fill="red"
+		     stroke="none" />
+		
+	</g> 
+	
+	<circle cx="251" cy="251" 
+	        r="10" 
+	        fill="red" />	     
+
+</svg>
